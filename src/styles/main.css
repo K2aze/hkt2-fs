@@ -1,0 +1,102 @@
+@layer reset, base, components, overwrite;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  button,
+  a {
+    font: inherit;
+    background: none;
+    border: none;
+    text-decoration: none;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    line-height: 1em;
+    margin-block: 0;
+    padding-block: 0;
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--noto-font);
+  }
+  :root {
+    /** Base colors */
+    --clr-dark-a0: #000000;
+    --clr-light-a0: #ffffff;
+
+    /** Theme primary colors */
+    --clr-primary-a0: #1ca9c9;
+    --clr-primary-a10: #2095b0;
+    --clr-primary-a20: #228198;
+    --clr-primary-a30: #226d81;
+    --clr-primary-a40: #205b6a;
+    --clr-primary-a50: #1e4955;
+
+    /** Theme surface colors */
+    --clr-surface-a0: #f8fafc;
+    --clr-surface-a10: #eaeced;
+    --clr-surface-a20: #dcdedf;
+    --clr-surface-a30: #ced0d1;
+    --clr-surface-a40: #c1c2c3;
+    --clr-surface-a50: #b4b4b5;
+
+    /** Theme tonal surface colors */
+    --clr-surface-tonal-a0: #e7f2f7;
+    --clr-surface-tonal-a10: #dbe5e9;
+    --clr-surface-tonal-a20: #cfd8db;
+    --clr-surface-tonal-a30: #c3cbce;
+    --clr-surface-tonal-a40: #b8bec0;
+    --clr-surface-tonal-a50: #acb1b3;
+
+    /** Success colors */
+    --clr-success-a0: #3ef775;
+    --clr-success-a10: #87faaa;
+    --clr-success-a20: #d1fdde;
+
+    /** Warning colors */
+    --clr-warning-a0: #e8e82c;
+    --clr-warning-a10: #f0f071;
+    --clr-warning-a20: #f7f7b6;
+
+    /** Danger colors */
+    --clr-danger-a0: #ff4545;
+    --clr-danger-a10: #ff9292;
+    --clr-danger-a20: #ffdede;
+
+    /** Info colors */
+    --clr-info-a0: #41b3fa;
+    --clr-info-a10: #8cd1fc;
+    --clr-info-a20: #d6effe;
+
+    /** Examples */
+    .bg-primary {
+      color: var(--clr-primary-a50);
+      background-color: var(--clr-surface-a0);
+    }
+  }
+}
+
+@layer components {
+  .fallback {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+}

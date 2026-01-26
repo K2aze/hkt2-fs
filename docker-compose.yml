@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:17-alpine # Phiên bản mới nhất ổn định, nhẹ (alpine để tiết kiệm dung lượng)
+    container_name: local-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres # Tên user (có thể đổi)
+      POSTGRES_PASSWORD: your_secure_password # Đổi thành password mạnh của bạn
+      POSTGRES_DB: ecotourism # Tên database mặc định cho dự án
+    ports:
+      - "5432:5432" # Map port 5432 local → container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Lưu dữ liệu persistent (không mất khi restart)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin: # Tùy chọn: Giao diện web để quản lý DB (giống Prisma Studio)
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin1
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local.com # Email đăng nhập pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: admin_password # Password đăng nhập pgAdmin (đổi đi nhé!)
+    ports:
+      - "8080:80" # Truy cập pgAdmin tại http://localhost:8080
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin # Lưu config pgAdmin
+    depends_on:
+      - postgres # Chờ postgres chạy trước
+
+volumes:
+  postgres_data: # Volume lưu dữ liệu PostgreSQL
+  pgadmin_data: # Volume lưu config pgAdmin

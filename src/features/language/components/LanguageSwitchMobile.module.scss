@@ -1,0 +1,11 @@
+.trigger {
+  margin-inline-start: 0.5rem;
+  gap: 0.5rem;
+  &Code {
+    padding-inline-end: calc(0.5rem - 1px);
+    text-transform: capitalize;
+    font-weight: 500;
+    position: relative;
+    border-right: 1px solid var(--custom);
+  }
+}

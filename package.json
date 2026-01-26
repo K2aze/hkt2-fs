@@ -1,0 +1,43 @@
+{
+  "name": "kurashiki",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@auth/drizzle-adapter": "^1.11.1",
+    "@floating-ui/react": "^0.27.16",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.0",
+    "glob": "^13.0.0",
+    "motion": "^12.23.26",
+    "next": "16.0.8",
+    "next-auth": "^5.0.0-beta.30",
+    "next-intl": "^4.7.0",
+    "pg": "^8.16.3",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "sass": "^1.97.1",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/pg": "^8.15.6",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.8",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.8",
+    "tailwindcss": "^4",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}

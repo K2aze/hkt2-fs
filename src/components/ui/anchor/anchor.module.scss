@@ -1,0 +1,21 @@
+.anchor {
+  color: inherit;
+}
+
+.nav {
+  font-weight: 400;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(100% - 2px);
+    height: 1px;
+    width: 0%;
+    background-color: var(--clr-white-300);
+    transition: width 400ms ease-in;
+  }
+  &:hover::before {
+    width: 100%;
+    transition: width 200ms ease-in-out;
+  }
+}
