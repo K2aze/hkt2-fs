@@ -6,22 +6,22 @@ export interface LanguageItem {
 export const LANGUAGE: LanguageItem[] = [
   {
     code: "en",
-    label: "english",
+    label: "English",
   },
   {
     code: "ja",
-    label: "japanese",
+    label: "日本語",
   },
   {
     code: "vi",
-    label: "vietnamese",
+    label: "Tiếng Việt",
   },
   {
     code: "ko",
-    label: "korean",
+    label: "한국인",
   },
   {
     code: "my",
-    label: "myanmar",
+    label: "မြန်မာဘာသာစကား",
   },
 ];

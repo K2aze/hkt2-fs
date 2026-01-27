@@ -1,4 +1,5 @@
-import { GlobeIcon, UpdownIcon } from "@/components/ui/icons";
+"use client";
+import { ChevronsUpDown, Globe } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -17,11 +18,11 @@ const LanguageSwitchMobile = () => {
   const [selected, setSelected] = useState<string>(locale);
 
   return (
-    <Select>
+    <Select placement="bottom">
       <SelectTrigger className={styles.trigger}>
-        <GlobeIcon size={24} strokeWidth={1.5} />
+        <Globe />
         <span className={styles.triggerCode}>{t("language")}</span>
-        <UpdownIcon size={20} strokeWidth={1.5} />
+        <ChevronsUpDown />
       </SelectTrigger>
       <SelectContent>
         {LANGUAGE.map((lang) => (
@@ -34,7 +35,7 @@ const LanguageSwitchMobile = () => {
             }}
             selected={selected == lang.code}
           >
-            {t(`options.${lang.code}`)}
+            {lang.label}
           </SelectItem>
         ))}
       </SelectContent>
