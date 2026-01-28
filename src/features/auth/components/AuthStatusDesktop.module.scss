@@ -1,0 +1,96 @@
+@use "../../../styles/color" as *;
+@use "sass:color";
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userImage {
+  height: 2.5rem;
+  width: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 2.5rem;
+  border: 1px solid color.change($clr-primary, $blackness: 80%, $alpha: 30%);
+  padding: 0.25rem;
+}
+.userSvg {
+  height: 2rem;
+  width: 2rem;
+  stroke-width: 1px;
+}
+
+.userInfo {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.userName {
+  font-weight: 500;
+}
+.userEmail {
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+
+.actionTrigger {
+  height: 2rem;
+  width: 2rem;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.actions {
+  list-style-type: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: color.change($clr-primary, $lightness: 100%);
+  border: 1px solid color.change($clr-primary, $blackness: 80%, $alpha: 30%);
+}
+.actionItem:not(:first-child) {
+  margin-block-start: 0.25rem;
+}
+.actionLink {
+  display: block;
+  width: 100%;
+  padding: 0.25rem;
+  border-radius: 4px;
+  color: inherit;
+
+  &.login {
+    background-color: color.change($clr-primary, $lightness: 50%);
+    text-align: center;
+  }
+  &.create {
+    font-size: 0.875rem;
+    text-decoration: underline;
+    text-align: center;
+  }
+}
+
+/* Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #e8f5ee 25%, #d2f0e0 37%, #e8f5ee 63%);
+  background-size: 300% 100%;
+  animation: skeleton-loading 1.2s ease-in-out infinite;
+  border-radius: 999px;
+}
+.textBlock {
+  display: block;
+  height: 1.25em;
+  width: 5rem;
+}
+.btnBlock {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

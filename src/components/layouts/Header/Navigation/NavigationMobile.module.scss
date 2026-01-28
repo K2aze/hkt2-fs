@@ -1,0 +1,51 @@
+@use "../../../../styles/color" as *;
+@use "sass:color";
+.root {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(100%, 418px);
+  min-height: 100%;
+  z-index: 17;
+  background-color: color.change($clr-primary, $lightness: 99%);
+  padding-block-start: calc(1.25 * var(--header-height));
+  padding-inline: 1rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 1.25rem;
+  padding-block-end: 1rem;
+}
+
+.authStatus {
+  width: 100%;
+}
+
+.navList {
+  display: grid;
+  gap: 0.25rem;
+}
+.navItem {
+  width: 100%;
+  background-color: color.change($clr-primary, $lightness: 100%);
+  list-style-type: none;
+  border-radius: 6px;
+}
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1.5rem;
+  padding-inline-start: 1rem;
+  color: inherit;
+}
+.navSocials {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  font-size: 1rem;
+  color: inherit;
+}
+.navListSocials {
+  margin-block-start: auto;
+}

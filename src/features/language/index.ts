@@ -1,1 +1,1 @@
-export { default as LanguageSwitchMobile } from "./components/LanguageSwitchMobile";
+export { default as LanguageSwitch } from "./components/LanguageSwitch";

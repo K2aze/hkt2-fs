@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { requireSession } from "@/lib/session";
 import { bookingSchema } from "@/lib/validations";
 import { bookingsTable } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -29,10 +29,13 @@ export async function POST(request: NextRequest) {
 
     if (
       lastBooking &&
-      now.getTime() - lastBooking.created_at.getTime() < 10 * 60 * 1000
+      // now.getTime() - lastBooking.created_at.getTime() < 10 * 60 * 1000
+      now.getTime() - lastBooking.created_at.getTime() < 3000
     ) {
       return Response.json({ error: "TOO_MANY_REQUESTS" }, { status: 429 });
     }
+
+    const booking_date = new Date(parsed.data.bookingDate);
 
     await db.insert(bookingsTable).values({
       user_id: session.user_id ?? null,
@@ -40,7 +43,7 @@ export async function POST(request: NextRequest) {
       full_name: parsed.data.fullName,
       phone_number: parsed.data.phoneNumber,
       email: parsed.data.email,
-      booking_date: parsed.data.bookingDate,
+      booking_date: booking_date,
       time: parsed.data.time,
       people: parsed.data.people,
       services: parsed.data.services,
@@ -57,23 +60,29 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const session = requireSession();
-
+    const session = await requireSession();
     if (!session)
-      return Response.json({ error: "SEASSON_NOT_FOUND" }, { status: 500 });
+      return Response.json({ error: "SESSION_NOT_FOUND" }, { status: 500 });
+
+    const whereCondition = session.user_id
+      ? or(
+          eq(bookingsTable.session_id, session.id),
+          eq(bookingsTable.user_id, session.user_id),
+        )
+      : eq(bookingsTable.session_id, session.id);
+
     const result = await db.query.bookingsTable.findMany({
-      where: eq(bookingsTable.session_id, (await session).id),
+      where: whereCondition,
       orderBy: bookingsTable.updated_at,
       columns: {
         user_id: false,
         session_id: false,
       },
     });
+
     return Response.json({ message: result }, { status: 200 });
-  } catch (error: unknown) {
-    console.log("===============");
+  } catch (error) {
     console.log(error);
-    console.log("===============");
     return Response.json({ error: "ERROR_UNKNOWN" }, { status: 500 });
   }
 }

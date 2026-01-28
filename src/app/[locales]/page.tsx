@@ -1,14 +1,18 @@
-import { BackgroundVideo } from "@/components/heroSection/backgroundVideo";
-import Header from "@/components/layouts/Header";
+import {
+  Atmosphere,
+  Attractions,
+  Collection,
+  Essence,
+  HeroSection,
+} from "@/components/home";
 function home() {
   return (
     <>
-      <Header />
-      <main>
-        <div className="hero">
-          <BackgroundVideo />
-        </div>
-      </main>
+      <HeroSection />
+      <Attractions />
+      <Essence />
+      <Atmosphere />
+      <Collection />
     </>
   );
 }

@@ -1,8 +1,6 @@
 @use "../../../styles/color" as *;
 @use "sass:color";
 .trigger {
-  --custom: #{color.change($clr-dark, $lightness: 60%)};
-  color: color.change($clr-dark, $lightness: 30%);
   background-color: $clr-white;
   display: flex;
   width: fit-content;
@@ -10,26 +8,18 @@
   gap: 0.25em;
   padding: 0.25rem 0.75rem;
   border-radius: 4px;
-  border: 1px solid color.change($clr-dark, $lightness: 70%, $alpha: 50%);
-  box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 0 #0000,
-    0 1px 2px 0 color.change($clr-primary, $alpha: 10%);
   cursor: pointer;
   transition:
     background-color 400ms ease,
     border-color 400ms ease;
   &:hover {
     background-color: color.change($clr-dark, $lightness: 80%, $alpha: 30%);
-    border: 1px solid color.change($clr-dark, $lightness: 50%, $alpha: 50%);
     transition:
       background-color 200ms ease,
       border-color 200ms ease;
   }
   &.active {
     background-color: color.change($clr-dark, $lightness: 80%, $alpha: 30%);
-    border: 1px solid color.change($clr-dark, $lightness: 50%, $alpha: 50%);
   }
 }
 
@@ -40,11 +30,6 @@
   background-color: $clr-white;
   border: 1px solid color.change($clr-dark, $lightness: 50%, $alpha: 30%);
   border-radius: 6px;
-  box-shadow:
-    0 0 #0000,
-    0 0 #0000,
-    0 0 #0000,
-    0 1px 2px 0 color.change($clr-dark, $lightness: 50%, $alpha: 10%);
   padding: 0.25rem;
   display: grid;
   gap: 0.25rem;

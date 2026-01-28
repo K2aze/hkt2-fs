@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { loginSchema } from "@/lib/validations";
 import { db } from "@/lib/db";
-import { sessionsTable, usersTable } from "@/server/db/schema";
+import { bookingsTable, sessionsTable, usersTable } from "@/server/db/schema";
 import { comparePassword } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import z from "zod";
@@ -35,6 +35,11 @@ export async function POST(request: NextRequest) {
       .update(sessionsTable)
       .set({ user_id: user.id })
       .where(eq(sessionsTable.id, session.id));
+
+    await db
+      .update(bookingsTable)
+      .set({ user_id: user.id, session_id: null })
+      .where(eq(bookingsTable.session_id, session.id));
 
     return Response.json({ message: "LOGIN_SUCCESSFUL" }, { status: 200 });
   } catch (error: unknown) {

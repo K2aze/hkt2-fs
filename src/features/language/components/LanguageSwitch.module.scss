@@ -1,0 +1,25 @@
+.trigger {
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  width: fit-content;
+  color: inherit;
+  justify-content: space-between;
+  font-weight: 300;
+  @media (min-width: 912px) {
+    width: fit-content;
+  }
+  &Code {
+    padding-inline-end: calc(0.5rem - 1px);
+    text-transform: capitalize;
+    font-weight: 500;
+    position: relative;
+    border-right: 1px solid var(--custom);
+  }
+}
+
+.selectContent {
+  @media (min-width: 912px) {
+    width: fit-content;
+  }
+}

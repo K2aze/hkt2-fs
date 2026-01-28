@@ -27,15 +27,7 @@ const phoneNumberSchema = z
   .min(8, { error: "PHONENUMBER_MIN_LENGTH" })
   .max(15, { error: "PHONENUMBER_MAX_LENGTH" });
 
-const bookingDateSchema = z.coerce.date().refine(
-  (date) => {
-    const selected = new Date(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return selected >= today;
-  },
-  { message: "BOOKING_DATE_UNVALID" },
-);
+const bookingDateSchema = z.string();
 
 const numberOfParticipants = z
   .number({ error: "NOT_NUMBER" })
@@ -102,3 +94,34 @@ export const bookingSchema = z.object({
   requests: specialRequests,
   subscription: newsletterSubscription,
 });
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+export const bookingDateString = z
+  .string()
+  .refine(
+    (val) => {
+      if (!val) return false;
+      const selected = new Date(val);
+      return selected > today;
+    },
+    {
+      message: "ON_PAST",
+    },
+  )
+  .refine((val) => !!val, {
+    message: "REQUIRE",
+  });
+export const bookingFormSchema = z.object({
+  fullName: fullNameSchema,
+  email: emailSchema,
+  phoneNumber: phoneNumberSchema,
+  bookingDate: bookingDateString,
+  people: numberOfParticipants,
+  services: serviceType,
+  time: preferredTimeSlot,
+  requests: specialRequests,
+  subscription: newsletterSubscription,
+});
+
+export type BookingFormSchema = z.infer<typeof bookingFormSchema>;

@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:17-alpine # Phiên bản mới nhất ổn định, nhẹ (alpine để tiết kiệm dung lượng)
-    container_name: local-postgres
+    image: postgres:17-alpine
+    container_name: postgresK
     restart: always
     environment:
       POSTGRES_USER: postgres # Tên user (có thể đổi)
@@ -19,9 +19,9 @@ services:
       timeout: 5s
       retries: 5
 
-  pgadmin: # Tùy chọn: Giao diện web để quản lý DB (giống Prisma Studio)
+  pgadminK: # Tùy chọn: Giao diện web để quản lý DB (giống Prisma Studio)
     image: dpage/pgadmin4:latest
-    container_name: pgadmin1
+    container_name: pgadminK
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@local.com # Email đăng nhập pgAdmin

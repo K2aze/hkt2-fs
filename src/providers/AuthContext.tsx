@@ -1,4 +1,5 @@
 "use client";
+import { AuthMeResponse } from "@/types/auth";
 import {
   createContext,
   useContext,
@@ -7,112 +8,109 @@ import {
   ReactNode,
 } from "react";
 
-interface User {
-  id: string;
-  email: string;
-  name: string;
+export interface UserType {
+  id: number;
+  username: string;
+  createdAt: string;
+  contact: {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    emailVerified: boolean;
+    phoneVerified: boolean;
+  };
+  bookings: {
+    total: number;
+    new: number;
+    scheduled: number;
+    contacted: number;
+  };
 }
 
-interface AuthContextType {
-  user: User | null;
+export type AuthContextType = {
+  user: UserType | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+
+  login: (payload: { username: string; password: string }) => Promise<void>;
+
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
-}
+};
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState(true);
-
-  // Kiểm tra authentication khi app load
-  useEffect(() => {
-    checkAuth();
-  }, []);
 
   const checkAuth = async () => {
     try {
-      // Gọi API để verify session
-      // Cookie sẽ tự động được gửi kèm với request
-      const response = await fetch("/api/auth/me", {
-        method: "GET",
-        credentials: "include", // Quan trọng: để gửi cookie
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const res = await fetch("/api/auth/me", {
+        credentials: "include",
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      } else {
+      if (!res.ok) {
         setUser(null);
+        return;
       }
-    } catch (error) {
-      console.error("Auth check failed:", error);
-      setUser(null);
+
+      const data: AuthMeResponse = await res.json();
+
+      if (!data.user) {
+        setUser(null);
+        return;
+      }
+
+      setUser({
+        id: data.user.id,
+        username: data.user.username,
+        createdAt: data.user.createdAt,
+        contact: data.contact!,
+        bookings: data.bookings!,
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        credentials: "include", // Để nhận cookie từ server
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  const login: AuthContextType["login"] = async (payload) => {
+    setLoading(true);
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Login failed");
-      }
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      const userData = await response.json();
-      setUser(userData);
-    } catch (error) {
-      throw error;
+    if (!res.ok) {
+      setLoading(false);
+      throw new Error("Login failed");
     }
+
+    await checkAuth();
   };
 
-  const logout = async () => {
-    try {
-      await fetch("/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const logout: AuthContextType["logout"] = async () => {
+    setLoading(true);
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
 
-      setUser(null);
-    } catch (error) {
-      console.error("Logout failed:", error);
-      // Vẫn clear user state ngay cả khi API call fail
-      setUser(null);
-    }
+    setUser(null);
+    setLoading(false);
   };
 
   useEffect(() => {
-    setUser({
-      id: "Hoang Hieu",
-      name: "Hoang Hieu",
-      email: "fkqem@kfmeqf.rkqm",
-    });
-    setLoading(false);
+    checkAuth();
   }, []);
 
-  const value = {
+  const value: AuthContextType = {
     user,
     loading,
     login,
@@ -123,11 +121,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// Custom hook để sử dụng AuthContext
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+  const ctx = useContext(AuthContext);
+
+  if (!ctx) {
+    throw new Error("useAuth must be used within AuthProvider");
   }
-  return context;
+
+  return ctx;
 };
