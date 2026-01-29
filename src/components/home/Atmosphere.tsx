@@ -1,5 +1,6 @@
 "use client";
 import { ATMOSPHERE_DATA, selectProps } from "@/data/atmosphere";
+import clsx from "clsx";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -11,26 +12,26 @@ const Atmosphere = () => {
   };
   return (
     <section className="ap">
-      <h2 className="ap__tt">Atmosphere</h2>
-      <p className="ap__d">Four Seasons of Kurashiki</p>
+      <h2 className="text-green-700 font-bold text-xs uppercase tracking-widest">
+        Atmosphere
+      </h2>
+      <p className="text-4xl font-serif italic text-stone-900 mb-8 leading-tight">
+        Four Seasons of Kurashiki
+      </p>
 
       <div className="ap__wrp">
-        <div className="ap__bw">
-          <button className="ap__btn" onClick={() => handleSelect("spring")}>
-            Spring
-          </button>
-          <button className="ap__btn" onClick={() => handleSelect("summer")}>
-            Summner
-          </button>
-          <button className="ap__btn" onClick={() => handleSelect("autumn")}>
-            Autumn
-          </button>
-          <button
-            className="ap__btn"
-            onClick={() => handleSelect("nightlight")}
-          >
-            Night Light
-          </button>
+        <div className="grid grid-cols-4 gap-2 tablet:grid-cols-1 min-w-2xs">
+          {ATMOSPHERE_DATA.map((item) => (
+            <button
+              key={item.id}
+              className={clsx("p-4 rounded-md border border-neutral-400", {
+                ["bg-green-700 text-white"]: item.id == selected,
+              })}
+              onClick={() => handleSelect(item.id)}
+            >
+              {item.id}
+            </button>
+          ))}
         </div>
 
         {ATMOSPHERE_DATA.map((item) => (

@@ -11,7 +11,10 @@ const NavigationDesktop = () => {
         <ul className={styles.navList}>
           {MAIN_NAV.map((item) => (
             <li key={item.id} className={styles.navItem}>
-              <Link href={item.to} className={styles.navLink}>
+              <Link
+                href={item.to}
+                className="text-sm font-bold uppercase tracking-[0.15em] hover:text-green-700 transition-all text-white"
+              >
                 <span>{item.label}</span>
               </Link>
             </li>

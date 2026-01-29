@@ -2,12 +2,8 @@ import { LoginForm, LogoutBtn, RegisterForm } from "@/features/auth";
 
 function login() {
   return (
-    <div>
-      <RegisterForm />
-
+    <div className="grid place-items-center min-h-svh pt-20">
       <LoginForm />
-
-      <LogoutBtn />
     </div>
   );
 }

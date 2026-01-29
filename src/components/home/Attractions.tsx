@@ -1,15 +1,20 @@
 import { ATTRACTIONS_DATA } from "@/data/attractions";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const Attractions = () => {
   return (
     <section className="ats">
-      <div className="ats__tc">
-        <div className="ats__tc__c1">
-          <h2 className="ats__tt">Essential Recommended Highlights</h2>
-          <p className="ats__st">Hand-picked Eco-conscious Locations</p>
+      <div className="flex justify-between gap-8">
+        <div className="space-y-2">
+          <h2 className="text-green-700 font-bold text-[9px] uppercase tracking-[0.2em]">
+            Essential Recommended Highlights
+          </h2>
+          <p className="text-3xl md:text-4xl font-serif italic text-stone-900 leading-tight">
+            Hand-picked Eco-conscious Locations
+          </p>
         </div>
-        <p className="ats__d">
+        <p className="text-stone-500 text-sm md:text-xs max-w-xs leading-relaxed italic self-end">
           Locations We believe in travel that gives back to the earth and the
           local Kurashiki community, preserving our beauty for generations to
           come
@@ -32,12 +37,22 @@ const Attractions = () => {
               </div>
 
               <div className="ats__atc__ct">
-                <h3 className="ats__atc__tt">{item.title}</h3>
-                <p className="ats__atc__d">{item.desc}</p>
-                <div className="ats__atc__t">
-                  <span className="ats__atc__sm">{item.price}</span>
-                  <a href="#" className="ats__atc__btn">
-                    Read now
+                <h3 className="text-lg font-serif italic text-stone-900 group-hover:text-green-700 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-stone-500 text-sm leading-relaxed mb-4 line-clamp-2 italic">
+                  {item.desc}
+                </p>
+                <div className="flex grow justify-between items-end">
+                  <span className="px-2 py-1 bg-green-200 rounded-full text-xs">
+                    {item.price}
+                  </span>
+                  <a
+                    href="#"
+                    className="underline text-green-600 flex items-center gap-1"
+                  >
+                    <span>Read now</span>
+                    <ArrowRight size={18} />
                   </a>
                 </div>
               </div>

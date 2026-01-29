@@ -2,7 +2,7 @@ import { AllBooking } from "@/features/booking";
 
 function Page() {
   return (
-    <div>
+    <div className="grid place-items-center min-h-svh pt-20">
       <AllBooking />
     </div>
   );

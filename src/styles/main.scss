@@ -6,7 +6,6 @@
   padding-block: calc(1.25 * 4rem);
   padding-inline: 1rem;
   display: grid;
-  gap: 1rem;
   place-items: center;
   align-content: center;
   text-align: center;
@@ -35,45 +34,14 @@
       );
     }
   }
-
-  &__s {
-    padding: 0.25rem 1rem;
-    background-color: color.change($clr-primary, $lightness: 20%, $alpha: 80%);
-    border-radius: 2rem;
-    font-size: clamp(0.75rem, 0.5966rem + 0.6818vw, 1rem);
-  }
-
-  &__l {
-    display: block;
-    padding: 0.75rem 1.5rem;
-    background-color: color.change($clr-primary, $lightness: 30%);
-    color: #fff;
-    border-radius: 2rem;
-    margin-block-start: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75em;
-  }
 }
 
 .ats {
   padding: 1rem;
-  min-height: min(100svh, calc(100vw * 1.5));
-
-  &__tc {
-    display: flex;
-    gap: 1.5rem;
-    flex-flow: column;
-    max-width: 1200px;
-    @media (min-width: 1200px) {
-      margin-inline: auto;
-    }
-    &__c1 {
-      display: grid;
-      gap: 0.5rem;
-    }
+  max-width: 1200px;
+  @media (min-width: 1200px) {
+    margin-inline: auto;
   }
-
   &__tt {
     @extend %sub-title;
   }
@@ -155,62 +123,6 @@
       font-weight: 500;
       color: color.change($clr-primary, $lightness: 100%);
     }
-  }
-}
-
-.ess {
-  padding: 1rem;
-  text-align: center;
-  max-width: 1200px;
-  @media (min-width: 1200px) {
-    margin-inline: auto;
-  }
-  &__tt {
-    @extend %title;
-    margin-block-end: 1rem;
-  }
-
-  &__wrp {
-    display: flex;
-    margin-block: 2rem;
-    gap: 1rem;
-    list-style-type: none;
-    flex-flow: column;
-    max-width: 1200px;
-    @media (min-width: 912px) {
-      flex-flow: row;
-    }
-  }
-
-  &__atc {
-    display: grid;
-    gap: 0.5rem;
-    border: 1px solid color.change($clr-primary, $blackness: 40%, $alpha: 40%);
-    padding: 1rem;
-    border-radius: 8px;
-
-    &__icon {
-      display: grid;
-      place-items: center;
-      height: 4rem;
-      width: 4rem;
-      background-color: color.change($clr-primary, $lightness: 30%);
-      color: color.change($clr-primary, $lightness: 100%);
-      margin-inline: auto;
-      border-radius: 4rem;
-    }
-
-    &__tt {
-      font-weight: 500;
-    }
-    &__d {
-      font-weight: 300;
-    }
-  }
-
-  &__msl {
-    text-decoration: underline;
-    color: color.change($clr-primary, $lightness: 30%);
   }
 }
 

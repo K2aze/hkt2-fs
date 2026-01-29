@@ -2,7 +2,7 @@ import BookingForm from "@/features/booking/components/BookingForm";
 
 function page() {
   return (
-    <div>
+    <div className="grid place-items-center min-h-svh pt-20">
       <BookingForm />
     </div>
   );

@@ -1,4 +1,5 @@
 import { COLLECTION_DATA } from "@/data/collection";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const randomItems = [...COLLECTION_DATA]
@@ -9,18 +10,28 @@ const Collection = () => {
   return (
     <section className="clt">
       <div>
-        <h2 className="clt__tt">Curated Collection</h2>
-        <p className="clt__st">{`Kurashiki's Living Spirit`}</p>
+        <h2 className="text-green-600 font-bold text-[9px] uppercase tracking-[0.3em] mb-2 block">
+          Curated Collection
+        </h2>
+        <p className="text-3xl md:text-4xl font-serif text-stone-900 leading-tight">{`Kurashiki's Living Spirit`}</p>
       </div>
 
-      <ul className="clt__lt">
+      <ul className="grid grid-cols-2 grid-rows-2 gap-4 tablet:grid-rows-1 tablet:grid-cols-4">
         {randomItems.map((item) => (
-          <li key={item.id} className="clt__it">
-            <article className="clt__atc">
-              <span className="clt__atc__tag">{item.tag}</span>
-              <h3 className="clt__atc__tt">{item.title}</h3>
-              <a className="clt__atc__link" href={item.to}>
-                Read
+          <li key={item.id} className="aspect-3/4">
+            <article className="w-full h-full relative flex flex-col p-4 justify-end ">
+              <span className="bg-green-600 text-white px-2.5 py-1 rounded-full text-[8px] font-black uppercase tracking-widest w-fit mb-auto">
+                {item.tag}
+              </span>
+              <h3 className="text-lg font-serif italic mb-2 leading-tight text-white">
+                {item.title}
+              </h3>
+              <a
+                className="text-white underline flex items-center gap-2 font-black"
+                href={item.to}
+              >
+                <span>Read</span>
+                <ArrowRight />
               </a>
               <div className="clt__img">
                 <Image

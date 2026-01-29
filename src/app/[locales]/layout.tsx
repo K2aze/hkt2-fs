@@ -6,6 +6,8 @@ import { NextIntlClientProvider } from "next-intl";
 import { AuthProvider } from "@/providers/AuthContext";
 import Header from "@/components/layouts/Header";
 import { getLocale } from "next-intl/server";
+import "@/app/globals.css";
+import Footer from "@/components/layouts/Footer/Footer";
 const notoFont = Inter({
   display: "swap",
   subsets: ["vietnamese", "latin-ext", "latin"],
@@ -26,6 +28,7 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <Header />
             <main>{children}</main>
+            <Footer />
           </NextIntlClientProvider>
         </AuthProvider>
       </body>

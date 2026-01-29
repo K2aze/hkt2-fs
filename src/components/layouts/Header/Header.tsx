@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 import { useEffect, useEffectEvent, useState } from "react";
 import clsx from "clsx";
 import { NavigationDesktop, NavigationMobile } from "./Navigation";
-import { usePathname } from "@/lib/i18n/navigation";
+import { Link, usePathname } from "@/lib/i18n/navigation";
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -40,10 +40,14 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
-      <a href="#" className={styles.logo}>
-        <Leaf className={styles.logoSvg} />
-        <span className={styles.logoLabel}>Kurashiki Bikan</span>
-      </a>
+      <Link href={"/"} className="flex items-center gap-2">
+        <div className="bg-green-700 rounded-2xl flex items-center justify-center text-white shadow-xl rotate-3 w-12 h-12">
+          <Leaf size={22} />
+        </div>
+        <span className="text-2xl font-serif font-black tracking-tighter uppercase text-white block">
+          Kurashiki Bikan
+        </span>
+      </Link>
 
       {/*Mobile Navigation START*/}
       <button className={styles.menuTrigger} onClick={handleMenuClick}>

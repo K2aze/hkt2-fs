@@ -1,12 +1,13 @@
 "use client";
 import styles from "./AuthStatusDesktop.module.scss";
-import { EllipsisVertical, User } from "lucide-react";
+import { EllipsisVertical, LogOut, User } from "lucide-react";
 import { useAuth, UserType } from "@/providers/AuthContext";
 import { useState } from "react";
 import clsx from "clsx";
 import { GUEST_ACTION } from "../constants/guestActions";
 import { autoUpdate, offset, shift, useFloating } from "@floating-ui/react";
 import { USER_ACTION } from "../constants/userActions";
+import { Link } from "@/lib/i18n/navigation";
 
 const AuthStatusDesktop = () => {
   const { loading, user } = useAuth();
@@ -41,14 +42,14 @@ const GuestState = () => {
     middleware: [offset(8), shift({ padding: 4 })],
   });
   return (
-    <div className={styles.root}>
+    <div className="flex items-center gap-2 bg-white p-1 rounded-full group h-12">
       <div className={styles.userImage}>
         <User className={styles.userSvg} />
       </div>
       <span className={styles.userName}>Guest</span>
 
       <button
-        className={styles.actionTrigger}
+        className="h-12 aspect-square place-items-center rounded-full group-hover:bg-neutral-200"
         ref={refs.setReference}
         onClick={() => setOpen((prev) => !prev)}
       >
@@ -57,21 +58,19 @@ const GuestState = () => {
 
       {open && (
         <ul
-          className={styles.actions}
+          className="p-2 rounded-md bg-white border border-neutral-200 "
           // eslint-disable-next-line react-hooks/refs
           ref={refs.setFloating}
           style={floatingStyles}
         >
           {GUEST_ACTION.map((item) => (
-            <li key={item.id} className={styles.actionItem}>
+            <li key={item.id} className="rounded-md border-s-stone-200">
               <a
                 href={item.to}
-                className={clsx(styles.actionLink, {
-                  [styles.login]: item.id == "login",
-                  [styles.create]: item.id == "create",
-                })}
+                className="flex items-center gap-2 w-full  hover:text-green-500 p-2 "
               >
-                {item.label}
+                <item.icon size={16} />
+                <span>{item.label}</span>
               </a>
             </li>
           ))}
@@ -90,18 +89,23 @@ const UserState = ({ user }: { user: UserType }) => {
     middleware: [offset(8), shift({ padding: 4 })],
     whileElementsMounted: autoUpdate,
   });
+
+  const { logout } = useAuth();
+
   return (
-    <div className={styles.root}>
+    <div className="flex items-center gap-2 bg-white p-1 rounded-full group h-12">
       <div className={styles.userImage}>
         <User className={styles.userSvg} />
       </div>
       <div className={styles.userInfo}>
-        <span className={styles.userName}>{user.username}</span>
-        <span className={styles.userEmail}>{user.contact.email}</span>
+        <span className="text-sm font-medium">{user.username}</span>
+        <span className="text-xs font-light text-neutral-500">
+          {user.contact.email}
+        </span>
       </div>
 
       <button
-        className={styles.actionTrigger}
+        className="h-12 aspect-square place-items-center rounded-full group-hover:bg-neutral-200"
         ref={refs.setReference}
         onClick={() => setOpen((prev) => !prev)}
       >
@@ -110,23 +114,31 @@ const UserState = ({ user }: { user: UserType }) => {
 
       {open && (
         <ul
-          className={styles.actions}
+          className="p-2 rounded-md bg-white border border-neutral-200 "
           // eslint-disable-next-line react-hooks/refs
           ref={refs.setFloating}
           style={floatingStyles}
         >
           {USER_ACTION.map((item) => (
-            <li key={item.id} className={styles.actionItem}>
-              <a
+            <li key={item.id} className="rounded-md border-s-stone-200">
+              <Link
                 href={item.to}
-                className={clsx(styles.actionLink, {
-                  [styles.login]: item.id == "edit",
-                })}
+                className="flex items-center gap-2 w-full  hover:text-green-500 p-2 "
               >
-                {item.label}
-              </a>
+                <item.icon size={16} />
+                <span>{item.label}</span>
+              </Link>
             </li>
           ))}
+          <li className="rounded-md border-s-stone-200">
+            <button
+              className="flex items-center gap-2 w-full  hover:text-green-500 p-2 "
+              onClick={() => logout()}
+            >
+              <LogOut size={16} />
+              <span>Logout</span>
+            </button>
+          </li>
         </ul>
       )}
     </div>

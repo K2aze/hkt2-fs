@@ -4,6 +4,9 @@ import {
   Collection,
   Essence,
   HeroSection,
+  Map,
+  TravelInfo,
+  TripPlaner,
 } from "@/components/home";
 function home() {
   return (
@@ -13,6 +16,9 @@ function home() {
       <Essence />
       <Atmosphere />
       <Collection />
+      <Map />
+      <TripPlaner />
+      <TravelInfo />
     </>
   );
 }
